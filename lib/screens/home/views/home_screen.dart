@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:expense_repositry/expense_repository.dart';
+import 'package:expense_tracker_app/screens/add_expense/blocs/create_category_bloc/create_category_bloc.dart';
 import 'package:expense_tracker_app/screens/home/views/main_screen.dart';
 import 'package:expense_tracker_app/screens/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../add_expense/views/add_expense.dart';
 
@@ -68,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: (){
           
           Navigator.push(context, MaterialPageRoute(
-            builder: (BuildContext context) => const AddExpense(),
+            builder: (BuildContext context) => BlocProvider(
+              create: (context) => CreateCategoryBloc(FirebaseExpenseRepo()),
+              child: const AddExpense(),
+            ),
           ));
         },
         

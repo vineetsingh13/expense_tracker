@@ -1,0 +1,36 @@
+1) FIRST CREATED THE UI FOR THE APP
+
+2) THEN WE CREATED THE MODELS AND ENTITIES FOR CONNECTING TO FIREBASE
+MODELS ARE THE CLASSES THAT WE WILL USE IN OUR APP
+ENTITIES ARE THE CLASSES THAT WE WILL USE FOR CONVERTING OUR MODELS CLASSES SO THAT WE CAN INTERACT WITH FIREBASE
+
+IN MODELS
+    WE HAVE TOENTITY AND FROMENTITY METHOD TO CONVERT THE CATEGORY OBJECT TO CATEGORY ENTITY
+
+IN ENTITIES
+    we have todocument and fromdocument to convert the data into map so that firebase can store
+    and to convert the map data to category to be used in our app
+
+3) then we connected our flutter project with firebase
+first create a project then configure for flutter
+then install the firebase cli and log in
+then we use firebase login to login
+then we use this command npm install -g firebase-tools to install firebase tools
+then we run dart pub global activate flutterfire_cli
+now we run flutterfire configure in our root project folder
+
+after this we select the project from firebase we want to work on
+then we select for which platforms we need it
+
+4) after this we add firebase.initializeapp to our main.dart and bloc initializer to our dart
+we also create a SimpleBlocObserver class that will display messages on the bloc lifecycle for our debugging purpose
+
+5) enabled multidex support by adding multidexenable=true in build.gradle file
+These error conditions display a common number: 65536. This number represents the total number of references that can be invoked by the code within a single Dalvik Executable (DEX) bytecode file.
+Android app (APK) files contain executable bytecode files in the form of Dalvik Executable (DEX) files, which contain the compiled code used to run your app.
+The Dalvik Executable specification limits the total number of methods that can be referenced within a single DEX file to 65,536—including Android framework methods, library methods, and methods in your own code.
+
+6) so now we have create the createCategory blocs in that we take createCategory class from create_category_event.dart for creating the category
+now we try creating the category by using the future function in expense_repo.dart and at various times we generate the different states
+and in the ui we call context.read to read the createcategorybloc
+
