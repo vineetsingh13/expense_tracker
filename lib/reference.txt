@@ -34,3 +34,37 @@ The Dalvik Executable specification limits the total number of methods that can 
 now we try creating the category by using the future function in expense_repo.dart and at various times we generate the different states
 and in the ui we call context.read to read the createcategorybloc
 
+7) Today (11 march 2024):-
+a) create the circular loading when create category called
+b) created a separate file called category_creation.dart for the create category dialog box
+c) added a MultiBlocProvider widget in home_Screen.dart for creating getCategoryBloc
+
+d) now we first created a getcategoryevent class and created a getcategories class that extends getcategoryevent
+we create the getCategoryState class and in the success state we added a list of categories because thats what we want to retrieve
+after that we create a getCategoryBloc that responds to GetCategories event. We retrieve the list from expenseRepository and then we pass that list to success state class
+
+e) we changed the color type from string to int so that it can be easily accessible
+
+f) as soon as we create a category it is not visible so to do that
+- we make our getCategoryCreation to return Future
+- in add_expense we make store the future in a variable
+- we move Category variable higher in the code
+- we add all the set category codes in setState
+- and we pop category variable from our category_creation.dart
+- in add_expense we move the BLOCBUILDER higher up to cover our whole body so as data is added changes are triggered and remove the earlier blocbuilder below
+- now we add the category variable to our list of categories in add_expense.dart
+
+g)So as i was opening my keyboard i was getting an overflow of 81 pixels in the column
+so i wrapped the whole Column and padding below BlocBuilder with SingleChildScrollView
+
+
+h) create the expense class models and entities
+also created future methods in expense_repo.dart
+used expense object in add_expense.dart to accept data
+made changes in category text form field such as prefix icon and suffix icon
+made changes in the save button onTap
+
+i) created the bloc,event and state.dart files for create expense and added the bloc in home screen
+
+f) added another blocListener at the top most level in add_expense.dart with values CreateExpenseBloc
+also set the expenseId in the init() method

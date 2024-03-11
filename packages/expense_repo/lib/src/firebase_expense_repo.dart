@@ -43,4 +43,21 @@ class FirebaseExpenseRepo implements ExpenseRepository{
     }
   }
 
+
+  @override
+  Future<void> createExpense(Expense expense) async{
+
+    //HERE .DOC METHOD IS USED TO CREATE A NEW ID IF IT DOESNOT EXIST
+    //When you use the .doc() method without specifying an ID, Firestore automatically generates a new unique ID for the document.
+
+    //.SET METHOD IS USED TO SET THE DATA FOR THAT PARTICULAR ID
+    //HERE WE CREATE A DOCUMENT WITH ID AS CATEGORY ID AND THEN SET THE DATA
+    try{
+      expenseCollection.doc(expense.expenseId).set(expense.toEntity().toDocument());
+
+    }catch(e){
+      log(e.toString());
+      rethrow;
+    }
+  }
 }

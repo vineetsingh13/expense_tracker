@@ -6,7 +6,7 @@ class Category{
   String name;
   int totalExpenses;
   String icon;
-  String color;
+  int color;
 
   Category({
     required this.categoryId,
@@ -22,7 +22,7 @@ class Category{
       name: '',
       totalExpenses: 0,
       icon: '',
-      color: '');
+      color: 0);
 
   //FOR CONVERTING A CATEGORY OBJECT TO CATEGORY ENTITY OBJECT TO BE STORED IN FIREBASE
   CategoryEntity toEntity(){
