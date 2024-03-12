@@ -68,3 +68,20 @@ i) created the bloc,event and state.dart files for create expense and added the 
 
 f) added another blocListener at the top most level in add_expense.dart with values CreateExpenseBloc
 also set the expenseId in the init() method
+
+
+8) (12march 2024)
+a) create the getExpense() method in firebase_expense_repo.dart and expense_repo.dart
+
+b) created the bloc,event and state files for get expenses in home blocs section
+
+c) added a blocProvider called getExpenseBloc in app_view.dart for our home screen because the original code for moving to home_Screen is there
+similarly in add_expense the code to move to this screen was in the home_scren.dart so thats why we wrap at the highest level
+
+d) in the main_screen dart added a parameter for the class called List of expenses and made the list view builder dynamic
+
+e) so as soon as we add an expense we want it to display it on the screen
+- so what we do is we pop expense object also from add_expense.dart
+- in the home_screen.dart we store the expense object in a variable called newExpense
+- we add the newExpense to expenses list
+

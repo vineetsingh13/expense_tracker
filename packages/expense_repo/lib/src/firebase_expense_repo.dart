@@ -60,4 +60,23 @@ class FirebaseExpenseRepo implements ExpenseRepository{
       rethrow;
     }
   }
+
+
+  @override
+  Future<List<Expense>> getExpense() async {
+    //HERE FROM EXPENSECOLLECTION WE RETRIEVE ALL THE DOCUMENTS
+    //WE GET A MAP VALUES SO WE CONVERT THEM TO CATEGORY LIST AND RETURN IT
+    try{
+      return await expenseCollection
+          .get()
+          .then(
+              (value) => value.docs.map((e) =>
+              Expense.fromEntity(ExpenseEntity.fromDocument(e.data()))).toList());
+
+    }catch(e){
+      log(e.toString());
+      rethrow;
+    }
+  }
+
 }
