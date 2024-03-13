@@ -85,3 +85,12 @@ e) so as soon as we add an expense we want it to display it on the screen
 - in the home_screen.dart we store the expense object in a variable called newExpense
 - we add the newExpense to expenses list
 
+
+9) (13MARCH 24)
+a) changed the rupees textformfield to accept only digits in flutter
+
+b) added a variable totalAmount for the total Expense
+
+c) create a sharedPreference for storing the totalAmount. Created two method saveTotalAmount() that saves the data in a key value pair and loadTotalAmount to display it
+
+

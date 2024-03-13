@@ -3,6 +3,7 @@ import 'package:expense_tracker_app/screens/add_expense/blocs/create_expense_blo
 import 'package:expense_tracker_app/screens/add_expense/blocs/get_category_bloc/get_category_bloc.dart';
 import 'package:expense_tracker_app/screens/add_expense/views/category_creation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -79,6 +80,11 @@ class _AddExpenseState extends State<AddExpense> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         //RUPEES FORMFIELD
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           controller: expenseController,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
