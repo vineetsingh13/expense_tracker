@@ -34,9 +34,12 @@ class _AddExpenseState extends State<AddExpense> {
     //THE DATE FORMAT IS PART OF INTL PACKAGE
     dateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
     expense = Expense.empty;
+    expense.category=Category.empty;
     expense.expenseId=const Uuid().v1();
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

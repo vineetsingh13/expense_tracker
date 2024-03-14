@@ -20,6 +20,7 @@ class _MyChartState extends State<MyChart> {
 
   BarChartData mainBarChart(){
     return BarChartData(
+      alignment: BarChartAlignment.center,
       titlesData: FlTitlesData(
         show: true,
         rightTitles: AxisTitles(
@@ -31,14 +32,14 @@ class _MyChartState extends State<MyChart> {
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 38,
+              reservedSize: 35,
               getTitlesWidget: getTiles,
           )
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 38,
+              reservedSize: 35,
               getTitlesWidget: leftTitles,
           )
         ),
@@ -64,28 +65,19 @@ class _MyChartState extends State<MyChart> {
 
     switch(value.toInt()){
       case 0:
-        text=const Text("01",style: style,);
+        text=const Text("JAN",style: style,);
         break;
       case 1:
-        text=const Text("02",style: style,);
+        text=const Text("APR",style: style,);
         break;
       case 2:
-        text=const Text("03",style: style,);
+        text=const Text("JUL",style: style,);
         break;
       case 3:
-        text=const Text("04",style: style,);
+        text=const Text("OCT",style: style,);
         break;
       case 4:
-        text=const Text("05",style: style,);
-        break;
-      case 5:
-        text=const Text("06",style: style,);
-        break;
-      case 6:
-        text=const Text("07",style: style,);
-        break;
-      case 7:
-        text=const Text("08",style: style,);
+        text=const Text("DEC",style: style,);
         break;
       default:
         text=const Text(' ',style: style,);
@@ -93,9 +85,9 @@ class _MyChartState extends State<MyChart> {
     }
 
     return SideTitleWidget(
-        child: text,
         axisSide: meta.axisSide,
-        space: 16,
+        space: 18,
+        child: text,
     );
   }
 
@@ -119,6 +111,12 @@ class _MyChartState extends State<MyChart> {
       text="4k";
     }else if(value==5){
       text="5k";
+    }else if(value==8){
+      text="5k";
+    }else if(value==10){
+      text="5k";
+    }else if(value==9){
+      text="5k";
     }else{
       return Container();
     }
@@ -130,7 +128,7 @@ class _MyChartState extends State<MyChart> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(8, (i) {
+  List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
     switch(i){
       case 0:
         return makeGroupData(0,2);
@@ -148,6 +146,14 @@ class _MyChartState extends State<MyChart> {
         return makeGroupData(6,4);
       case 7:
         return makeGroupData(7,3.8);
+      case 8:
+        return makeGroupData(8,3.8);
+      case 9:
+        return makeGroupData(9,3.8);
+      case 10:
+        return makeGroupData(10,3.8);
+      case 11:
+        return makeGroupData(11,3.8);
       default:
         return throw Error();
     }

@@ -4,8 +4,13 @@ import 'package:expense_repositry/expense_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../add_expense/blocs/create_expense_bloc/create_expense_bloc.dart';
 
 class MainScreen extends StatefulWidget {
   final List<Expense> expenses;
@@ -18,38 +23,47 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   double totalAmount = 0;
+  late Expense expense;
+
+  @override
+  void didUpdateWidget(covariant MainScreen oldWidget) {
+    print("didUpdateWidget");
+
+    _subtractExpense(widget.expenses);
+    super.didUpdateWidget(oldWidget);
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _loadTotalAmount();
-    _subtractExpensesFromTotalAmount();
+  }
+
+
+  _subtractExpense(List<Expense> expenses) {
+    int expAmt = expenses[0].amount;
+
+
+    setState(() {
+      totalAmount = totalAmount - expAmt;
+      _saveTotalAmount(totalAmount);
+    });
   }
 
   _loadTotalAmount() async {
-    SharedPreferences pref=await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      totalAmount=pref.getDouble('totalAmount') ?? 0;
+      totalAmount = pref.getDouble('totalAmount') ?? 0;
     });
   }
 
   _saveTotalAmount(double amt) async {
-    SharedPreferences pref=await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setDouble('totalAmount', amt);
   }
 
-  _subtractExpensesFromTotalAmount() async {
-    double totalExpenses = 0;
-    for (var expense in widget.expenses) {
-      totalExpenses += expense.amount;
-    }
-    setState(() {
-      totalAmount -= totalExpenses;
-    });
-
-    await _saveTotalAmount(totalAmount);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +104,10 @@ class _MainScreenState extends State<MainScreen> {
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.outline),
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .outline),
                         ),
                         Text(
                           "vineet singh",
@@ -98,7 +115,10 @@ class _MainScreenState extends State<MainScreen> {
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color:
-                                  Theme.of(context).colorScheme.onBackground),
+                              Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .onBackground),
                         ),
                       ],
                     ),
@@ -113,15 +133,30 @@ class _MainScreenState extends State<MainScreen> {
               height: 20.0,
             ),
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 2,
               //ADDING GRADIENT TO THE CONTAINER
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.secondary,
-                      Theme.of(context).colorScheme.tertiary
+                      Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
+                      Theme
+                          .of(context)
+                          .colorScheme
+                          .secondary,
+                      Theme
+                          .of(context)
+                          .colorScheme
+                          .tertiary
                     ],
                     transform: const GradientRotation(pi / 4),
                   ),
@@ -174,28 +209,32 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           child: IconButton(
                             onPressed: () {
-
                               showDialog(
                                 context: context,
                                 builder: (ctx3) {
-
                                   TextEditingController addAmountController = TextEditingController();
 
                                   return AlertDialog(
                                     title: const Text("Add Amount"),
                                     content: SizedBox(
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           TextFormField(
                                             keyboardType: TextInputType.number,
-                                            inputFormatters: <TextInputFormatter>[
+                                            inputFormatters: <
+                                                TextInputFormatter>[
 
-                                              FilteringTextInputFormatter.digitsOnly
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
                                             ],
                                             controller: addAmountController,
-                                            textAlignVertical: TextAlignVertical.center,
+                                            textAlignVertical: TextAlignVertical
+                                                .center,
                                             decoration: InputDecoration(
                                               //WE USE FILLED AND FILL TO GIVE BG COLOR TO OUR FORMFIELD
                                               filled: true,
@@ -203,7 +242,8 @@ class _MainScreenState extends State<MainScreen> {
                                               //is dense takes less vertical space
                                               isDense: true,
                                               border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(12),
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
                                                   borderSide: BorderSide.none),
                                               hintText: "Add Amount",
                                             ),
@@ -216,10 +256,11 @@ class _MainScreenState extends State<MainScreen> {
                                             height: 50,
                                             child: TextButton(
                                               onPressed: () {
-
-                                                setState((){
-                                                  totalAmount+=double.parse(addAmountController.text);
+                                                setState(() {
+                                                  totalAmount += double.parse(
+                                                      addAmountController.text);
                                                   _saveTotalAmount(totalAmount);
+
                                                 });
                                                 Navigator.pop(ctx3);
                                               },
@@ -243,14 +284,13 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                                   );
                                 },
-                              ).then((value){
-
+                              ).then((value) {
                                 _saveTotalAmount(totalAmount);
                               });
                             },
                             icon: const Icon(Icons.add),
                             color:
-                                Colors.white, // Change the icon color if needed
+                            Colors.white, // Change the icon color if needed
                           ),
                         ),
                         const SizedBox(
@@ -275,10 +315,10 @@ class _MainScreenState extends State<MainScreen> {
                                   shape: BoxShape.circle),
                               child: const Center(
                                   child: Icon(
-                                CupertinoIcons.arrow_down,
-                                size: 12,
-                                color: Colors.greenAccent,
-                              )),
+                                    CupertinoIcons.arrow_down,
+                                    size: 12,
+                                    color: Colors.greenAccent,
+                                  )),
                             ),
                             const SizedBox(
                               width: 8,
@@ -314,10 +354,10 @@ class _MainScreenState extends State<MainScreen> {
                                   shape: BoxShape.circle),
                               child: const Center(
                                   child: Icon(
-                                CupertinoIcons.arrow_down,
-                                size: 12,
-                                color: Colors.red,
-                              )),
+                                    CupertinoIcons.arrow_down,
+                                    size: 12,
+                                    color: Colors.red,
+                                  )),
                             ),
                             const SizedBox(
                               width: 8,
@@ -359,7 +399,10 @@ class _MainScreenState extends State<MainScreen> {
                   "Transaction",
                   style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .onBackground,
                       fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
@@ -368,7 +411,10 @@ class _MainScreenState extends State<MainScreen> {
                     "View All",
                     style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .outline,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -401,16 +447,18 @@ class _MainScreenState extends State<MainScreen> {
                                       width: 50,
                                       height: 50,
                                       decoration: BoxDecoration(
-                                          //WE STORED COLOR AS INT IN FIREBASE HENCE WE DO LIKE THIS
+                                        //WE STORED COLOR AS INT IN FIREBASE HENCE WE DO LIKE THIS
                                           color:
-                                              Color(widget.expenses[i].category.color),
+                                          Color(widget.expenses[i].category
+                                              .color),
                                           shape: BoxShape.circle),
                                     ),
                                     SizedBox(
                                       width: 18, // Adjust the width as needed
                                       height: 18, // Adjust the height as needed
                                       child: Image.asset(
-                                        'assets/images/${widget.expenses[i].category.icon}.png',
+                                        'assets/images/${widget.expenses[i]
+                                            .category.icon}.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -427,7 +475,8 @@ class _MainScreenState extends State<MainScreen> {
                                   widget.expenses[i].category.name,
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context)
+                                      color: Theme
+                                          .of(context)
                                           .colorScheme
                                           .onBackground,
                                       fontWeight: FontWeight.w600),
@@ -441,7 +490,8 @@ class _MainScreenState extends State<MainScreen> {
                                   widget.expenses[i].amount.toString(),
                                   style: TextStyle(
                                       fontSize: 14,
-                                      color: Theme.of(context)
+                                      color: Theme
+                                          .of(context)
                                           .colorScheme
                                           .onBackground,
                                       fontWeight: FontWeight.w400),
@@ -452,7 +502,10 @@ class _MainScreenState extends State<MainScreen> {
                                   style: TextStyle(
                                       fontSize: 16,
                                       color:
-                                          Theme.of(context).colorScheme.outline,
+                                      Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .outline,
                                       fontWeight: FontWeight.w400),
                                 ),
                               ],

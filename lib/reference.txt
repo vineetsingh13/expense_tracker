@@ -93,4 +93,9 @@ b) added a variable totalAmount for the total Expense
 
 c) create a sharedPreference for storing the totalAmount. Created two method saveTotalAmount() that saves the data in a key value pair and loadTotalAmount to display it
 
+10) (14 march 2024)
+a) in the main_Screen i wanted to update the totalAmount as soon as an expense is added
+ - so i created a subtractExpense() method which subtracts the expense and then call the saveTotalAmount() method for saving the new amount
 
+b) there was a problem - when we again went to add an expense in the category it was showing previously selected category
+- updated that by setting expense.category=category.empty in the init() method
