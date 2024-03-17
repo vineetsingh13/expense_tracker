@@ -66,13 +66,18 @@ class FirebaseExpenseRepo implements ExpenseRepository{
   Future<List<Expense>> getExpense() async {
     //HERE FROM EXPENSECOLLECTION WE RETRIEVE ALL THE DOCUMENTS
     //WE GET A MAP VALUES SO WE CONVERT THEM TO CATEGORY LIST AND RETURN IT
-    try{
-      return await expenseCollection
-          .get()
-          .then(
-              (value) => value.docs.map((e) =>
-              Expense.fromEntity(ExpenseEntity.fromDocument(e.data()))).toList());
+    try {
+      // Retrieve expenses from Firestore sorted by date in descending order
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await expenseCollection.orderBy('date', descending:true).get();
 
+      // Map Firestore documents to Expense objects
+      List<Expense> expenses = querySnapshot.docs.map((QueryDocumentSnapshot<Map<String, dynamic>> doc) {
+        // Convert Firestore document to Expense object
+        return Expense.fromEntity(ExpenseEntity.fromDocument(doc.data()));
+      }).toList();
+
+      return expenses;
     }catch(e){
       log(e.toString());
       rethrow;

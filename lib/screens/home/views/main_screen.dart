@@ -276,7 +276,7 @@ class _MainScreenState extends State<MainScreen> {
                                                 Expense newExpense = Expense(
                                                   expenseId: Uuid().v1(),
                                                   category: category,
-                                                  date: DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now())),
+                                                  date: DateTime.now(),
                                                   amount: int.parse(addAmountController.text),
                                                 );
 
@@ -337,7 +337,7 @@ class _MainScreenState extends State<MainScreen> {
                                   shape: BoxShape.circle),
                               child: const Center(
                                   child: Icon(
-                                    CupertinoIcons.arrow_down,
+                                    CupertinoIcons.arrow_up,
                                     size: 12,
                                     color: Colors.greenAccent,
                                   )),
@@ -418,7 +418,7 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Transaction",
+                  "Recent Transaction",
                   style: TextStyle(
                       fontSize: 16,
                       color: Theme
@@ -447,7 +447,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: widget.expenses.length,
+                itemCount: 6,
                 itemBuilder: (context, int i) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),

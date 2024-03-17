@@ -68,6 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
+                setState(() {
+                  index=0;
+                });
                 var newExpense = await Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -121,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Icon(CupertinoIcons.add),
               ),
             ),
-            body: index == 0 ? MainScreen(expenses: state.expenses) : const StatsScreen(),
+            body: index == 0 ? MainScreen(expenses: state.expenses) : StatsScreen(expenses: state.expenses),
           );
         } else {
           return const Scaffold(
