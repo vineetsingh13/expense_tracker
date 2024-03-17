@@ -30,7 +30,7 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     //THE DATE FORMAT IS PART OF INTL PACKAGE
     dateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
     expense = Expense.empty;

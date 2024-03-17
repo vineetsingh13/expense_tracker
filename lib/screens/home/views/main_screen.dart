@@ -36,16 +36,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    expense=Expense.empty;
     super.initState();
     _loadTotalAmount();
   }
 
 
   _subtractExpense(List<Expense> expenses) {
-    int expAmt = expenses[0].amount;
+    int expAmt = 0;
 
-
+    if(expenses[0].category.name!="Added Money"){
+      expAmt = expenses[0].amount;
+    }
     setState(() {
       totalAmount = totalAmount - expAmt;
       _saveTotalAmount(totalAmount);
@@ -256,12 +258,32 @@ class _MainScreenState extends State<MainScreen> {
                                             height: 50,
                                             child: TextButton(
                                               onPressed: () {
+
+                                                Category category=Category(
+                                                    categoryId: Uuid().v1(),
+                                                    name: "Added Money",
+                                                    totalExpenses: 0,
+                                                    icon: "dollar",
+                                                    color: const Color(0xFF00FF00).value
+                                                );
+
                                                 setState(() {
                                                   totalAmount += double.parse(
                                                       addAmountController.text);
                                                   _saveTotalAmount(totalAmount);
 
                                                 });
+                                                Expense newExpense = Expense(
+                                                  expenseId: Uuid().v1(),
+                                                  category: category,
+                                                  date: DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now())),
+                                                  amount: int.parse(addAmountController.text),
+                                                );
+
+                                                context
+                                                    .read<CreateExpenseBloc>()
+                                                    .add(CreateExpense(newExpense));
+                                                widget.expenses.insert(0, newExpense);
                                                 Navigator.pop(ctx3);
                                               },
                                               style: TextButton.styleFrom(

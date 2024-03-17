@@ -91,11 +91,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 );
-
+                // print(state.expenses[0].category.name);
+                // print(state.expenses[1].category.name);
+                // print(state.expenses[2].category.name);
+                // print("the new expense is: ${newExpense.category.name}");
                 if(newExpense!=null){
                   setState(() {
                     state.expenses.insert(0,newExpense);
                   });
+
                 }
               },
 
