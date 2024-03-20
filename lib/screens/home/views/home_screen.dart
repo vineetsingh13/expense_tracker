@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expense_repositry/expense_repository.dart';
+import 'package:expense_tracker_app/globals.dart';
 import 'package:expense_tracker_app/screens/add_expense/blocs/create_category_bloc/create_category_bloc.dart';
 import 'package:expense_tracker_app/screens/add_expense/blocs/create_expense_bloc/create_expense_bloc.dart';
 import 'package:expense_tracker_app/screens/add_expense/blocs/get_category_bloc/get_category_bloc.dart';
@@ -94,13 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 );
-                // print(state.expenses[0].category.name);
-                // print(state.expenses[1].category.name);
-                // print(state.expenses[2].category.name);
-                // print("the new expense is: ${newExpense.category.name}");
+
                 if(newExpense!=null){
                   setState(() {
                     state.expenses.insert(0,newExpense);
+                    totalMoney=totalMoney-state.expenses[0].amount;
+                    saveTotalMoney(totalMoney);
                   });
 
                 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expense_repositry/expense_repository.dart';
+import 'package:expense_tracker_app/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,7 @@ class MainScreen extends StatefulWidget {
 
   @override
   State<MainScreen> createState() => _MainScreenState();
+
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -39,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
     expense=Expense.empty;
     super.initState();
     _loadTotalAmount();
+    loadTotalMoney();
   }
 
 
@@ -193,7 +196,7 @@ class _MainScreenState extends State<MainScreen> {
                               height: 12,
                             ),
                             Text(
-                              totalAmount.toString(),
+                              totalMoney.toString(),
                               style: const TextStyle(
                                   fontSize: 40,
                                   color: Colors.white,
@@ -215,6 +218,7 @@ class _MainScreenState extends State<MainScreen> {
                                 context: context,
                                 builder: (ctx3) {
                                   TextEditingController addAmountController = TextEditingController();
+                                  TextEditingController descriptionController=TextEditingController();
 
                                   return AlertDialog(
                                     title: const Text("Add Amount"),
@@ -253,6 +257,25 @@ class _MainScreenState extends State<MainScreen> {
                                           const SizedBox(
                                             height: 16,
                                           ),
+                                          TextFormField(
+                                            controller: descriptionController,
+                                            decoration: InputDecoration(
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(32),
+                                                    borderSide: BorderSide.none),
+                                                prefixIcon: const Icon(
+                                                  FontAwesomeIcons.solidNoteSticky,
+                                                  size: 18,
+                                                  color: Colors.grey,
+                                                ),
+                                                label: const Text("Description")
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
                                           SizedBox(
                                             width: double.infinity,
                                             height: 50,
@@ -268,9 +291,9 @@ class _MainScreenState extends State<MainScreen> {
                                                 );
 
                                                 setState(() {
-                                                  totalAmount += double.parse(
+                                                  totalMoney += double.parse(
                                                       addAmountController.text);
-                                                  _saveTotalAmount(totalAmount);
+                                                  saveTotalMoney(totalMoney);
 
                                                 });
                                                 Expense newExpense = Expense(
@@ -278,6 +301,7 @@ class _MainScreenState extends State<MainScreen> {
                                                   category: category,
                                                   date: DateTime.now(),
                                                   amount: int.parse(addAmountController.text),
+                                                  description: descriptionController.text,
                                                 );
 
                                                 context
@@ -447,7 +471,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: widget.expenses.length > 6?6:widget.expenses.length,
                 itemBuilder: (context, int i) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),

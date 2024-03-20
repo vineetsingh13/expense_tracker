@@ -20,6 +20,8 @@ class _AddExpenseState extends State<AddExpense> {
   TextEditingController expenseController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  TextEditingController descriptionController=TextEditingController();
+
   DateTime selectDate = DateTime.now();
   late Expense expense;
 
@@ -65,7 +67,7 @@ class _AddExpenseState extends State<AddExpense> {
             if (state is GetCategorySuccess) {
               return SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -261,11 +263,30 @@ class _AddExpenseState extends State<AddExpense> {
                         ),
                       ),
                       const SizedBox(
-                        height: 32,
+                        height: 16,
+                      ),
+                      TextFormField(
+                        controller: descriptionController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32),
+                              borderSide: BorderSide.none),
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.solidNoteSticky,
+                            size: 18,
+                            color: Colors.grey,
+                          ),
+                          label: const Text("Description")
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
                       ),
                       SizedBox(
                         width: double.infinity,
-                        height: kToolbarHeight,
+                        height: kToolbarHeight/1.1,
                         child: mainButtonLoading
                             ? const Center(child: CircularProgressIndicator())
                             : TextButton(
@@ -273,6 +294,7 @@ class _AddExpenseState extends State<AddExpense> {
                                   setState(() {
                                     expense.amount =
                                         int.parse(expenseController.text);
+                                    expense.description=descriptionController.text;
                                   });
 
                                   context
@@ -287,7 +309,7 @@ class _AddExpenseState extends State<AddExpense> {
                                 child: const Text(
                                   "Save",
                                   style: TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     color: Colors.white,
                                   ),
                                 ),
