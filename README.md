@@ -3,7 +3,7 @@
 This Expense Tracker App is developed using Flutter framework for the front end, Firebase for data storage, and Bloc for state management. The app helps users to keep track of their expenses efficiently.
 
 # SCREENSHOTS
-<img src="https://github.com/vineetsingh13/expense_tracker/assets/80053859/d49425f7-4113-49a7-a908-b940eb993c08" width="100" height="100">
+<img src="https://github.com/vineetsingh13/expense_tracker/assets/80053859/d49425f7-4113-49a7-a908-b940eb993c08" width="500" height="1000">
 ![WhatsApp Image 2024-03-21 at 22 22 20_8d4ed479](https://github.com/vineetsingh13/expense_tracker/assets/80053859/d49425f7-4113-49a7-a908-b940eb993c08)
 ![WhatsApp Image 2024-03-21 at 22 22 20_1a4b9679](https://github.com/vineetsingh13/expense_tracker/assets/80053859/61134596-dbdf-4bff-bbd3-3c9e269e8caf)
 ![WhatsApp Image 2024-03-21 at 22 22 21_5e86346c](https://github.com/vineetsingh13/expense_tracker/assets/80053859/1ea763d9-d33f-48b7-9a3c-72dbd9577a81)
