@@ -14,5 +14,5 @@ This Expense Tracker App is developed using Flutter framework for the front end,
 <img src="https://github.com/vineetsingh13/expense_tracker/assets/80053859/a2afdfe1-2991-46cd-a992-50ab8e5fda98" width="300" height="650">
 
 # References
-https://bloclibrary.dev/
-https://dribbble.com/shots/15560984-Daily-Expense-Tracker
+- https://bloclibrary.dev/
+- https://dribbble.com/shots/15560984-Daily-Expense-Tracker
